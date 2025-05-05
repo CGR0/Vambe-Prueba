@@ -1,0 +1,69 @@
+services:
+  db:
+    container_name: db
+    image: postgres:13
+    volumes:
+      - pgdata-vambe:/var/lib/postgresql/data
+    env_file:
+      - ./env/db.env
+    networks:
+      - network-vambe
+
+  api:
+    container_name: api
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    environment:
+      NODE_ENV: development
+    ports:
+      - "3003:3000"
+    networks:
+      - network-vambe
+    volumes:
+      - ./api:/usr/src/app
+      - /usr/src/app/node_modules
+    env_file:
+      - ./env/api.env
+    depends_on:
+      db:
+        condition: service_started
+
+  web:
+    container_name: web
+    build:
+      context: ./web
+      dockerfile: Dockerfile
+    environment:
+      NODE_ENV: development
+    ports:
+      - "3004:3000"
+    networks:
+      - network-vambe
+    volumes:
+      - ./web:/usr/src/app
+      - /usr/src/app/node_modules
+    env_file:
+      - ./env/web.env
+    depends_on:
+      - api
+  
+  nginx:
+    container_name: nginx
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+    depends_on:
+      - api
+      - web
+    networks:
+      - network-vambe
+
+volumes:
+  pgdata-vambe:
+
+networks:
+  network-vambe:
+    driver: bridge
