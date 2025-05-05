@@ -1,6 +1,6 @@
 services:
   db:
-    container_name: db
+    container_name: db-vambe
     image: postgres:13
     volumes:
       - pgdata-vambe:/var/lib/postgresql/data
@@ -10,7 +10,7 @@ services:
       - network-vambe
 
   api:
-    container_name: api
+    container_name: api-vambe
     build:
       context: ./api
       dockerfile: Dockerfile
@@ -30,7 +30,7 @@ services:
         condition: service_started
 
   web:
-    container_name: web
+    container_name: web-vambe
     build:
       context: ./web
       dockerfile: Dockerfile
@@ -49,7 +49,7 @@ services:
       - api
   
   nginx:
-    container_name: nginx
+    container_name: nginx-vambe
     build:
       context: ./nginx
       dockerfile: Dockerfile
