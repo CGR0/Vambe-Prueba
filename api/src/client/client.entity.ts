@@ -1,4 +1,12 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Classification } from 'src/classification/classification.entity';
+import { Meeting } from 'src/meeting/meeting.entity';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  OneToMany,
+  OneToOne,
+} from 'typeorm';
 
 @Entity()
 export class Client {
@@ -14,5 +22,9 @@ export class Client {
   @Column()
   phone: string;
 
-  // Meeting -> Yo creo que si -> Fecha, transcripción, seller y closed
+  @OneToMany(() => Meeting, (meeting) => meeting.client)
+  meetings: Meeting[];
+
+  @OneToOne(() => Classification, (classification) => classification.client)
+  classification: Classification;
 }

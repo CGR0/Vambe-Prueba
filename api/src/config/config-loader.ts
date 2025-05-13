@@ -7,14 +7,15 @@ export const configLoader = () => ({
     username: process.env.DB_USER ?? 'postgres',
     password: process.env.DB_PASS,
     database: process.env.DB_NAME,
+    synchronize: process.env.SYNCHRONIZE === 'true',
   },
   port: process.env.PORT,
-  allowedOrigins: process.env.ALLOWED_ORIGINS?.split(',') ?? [
-    'http://localhost:3004',
-    'http://web:3000',
-    'http://localhost:80',
-    'http://localhost',
-    'http://api:3000',
-    'http://localhost:3003',
-  ],
+  cohere: {
+    apiKey: process.env.COHERE_API_KEY,
+  },
 });
+
+export const configOptions = {
+  load: [configLoader],
+  isGlobal: true,
+};

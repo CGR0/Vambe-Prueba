@@ -40,9 +40,7 @@ async function joinEntities(
     let currentEntity = primaryEntity;
     for (let i = 0; i < subEntities.length; i++) {
       const subEntity = subEntities[i];
-      if (joinedEntities.has(subEntity)) {
-        continue;
-      }
+      if (joinedEntities.has(subEntity)) continue;
       query.leftJoinAndSelect(`${currentEntity}.${subEntity}`, subEntity);
       joinedEntities.add(subEntity);
       currentEntity = subEntity;
