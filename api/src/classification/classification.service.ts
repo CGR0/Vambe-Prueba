@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Classification } from './classification.entity';
@@ -10,7 +10,16 @@ export class ClassificationService {
     private classificationRepository: Repository<Classification>,
   ) {}
 
-  async getClassifications() {
+  async listAll(): Promise<Classification[]> {
     return this.classificationRepository.find();
+  }
+
+  async create(): Promise<Classification> {
+    try {
+      const classification = this.classificationRepository.create();
+      return this.classificationRepository.save(classification);
+    } catch (error) {
+      throw new InternalServerErrorException(error.message);
+    }
   }
 }

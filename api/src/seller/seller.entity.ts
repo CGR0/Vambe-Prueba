@@ -6,7 +6,7 @@ export class Seller {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column()
+  @Column({ unique: true })
   name: string;
 
   @OneToMany(() => Meeting, (meeting) => meeting.seller)

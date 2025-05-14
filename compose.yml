@@ -47,7 +47,7 @@ services:
       - ./env/web.env
     depends_on:
       - api
-  
+
   nginx:
     container_name: nginx-vambe
     build:
@@ -58,6 +58,19 @@ services:
     depends_on:
       - api
       - web
+    networks:
+      - network-vambe
+
+  data_migration:
+    container_name: data-migration-vambe
+    build:
+      context: ./data_migration
+      dockerfile: Dockerfile
+    depends_on:
+      - db
+      - api
+    env_file:
+      - ./env/data_migration.env
     networks:
       - network-vambe
 

@@ -6,6 +6,7 @@ import {
   Column,
   OneToMany,
   OneToOne,
+  JoinColumn,
 } from 'typeorm';
 
 @Entity()
@@ -16,15 +17,18 @@ export class Client {
   @Column()
   name: string;
 
-  @Column()
+  @Column({ unique: true })
   email: string;
 
-  @Column()
+  @Column({ unique: true })
   phone: string;
 
   @OneToMany(() => Meeting, (meeting) => meeting.client)
   meetings: Meeting[];
 
-  @OneToOne(() => Classification, (classification) => classification.client)
+  @OneToOne(() => Classification, (classification) => classification.client, {
+    cascade: true,
+  })
+  @JoinColumn()
   classification: Classification;
 }

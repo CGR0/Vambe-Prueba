@@ -17,7 +17,11 @@
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json"
+    "test:e2e": "jest --config ./test/jest-e2e.json",
+    "typeorm": "typeorm-ts-node-commonjs -d src/data-source.ts",
+    "migrate": "typeorm-ts-node-commonjs -d dist/data-source.js migration:run && echo 'Migrations completed or none were needed' || echo 'Error during migration process'",
+    "start:prod:migrate": "npm run migrate && npm run start:prod",
+    "prettier-check": "prettier --check ."
   },
   "dependencies": {
     "@nestjs/common": "^11.0.1",
@@ -25,7 +29,9 @@
     "@nestjs/core": "^11.0.1",
     "@nestjs/platform-express": "^11.0.1",
     "@nestjs/typeorm": "^11.0.0",
+    "class-validator": "^0.14.2",
     "cohere-ai": "^7.17.1",
+    "pg": "^8.16.0",
     "reflect-metadata": "^0.2.2",
     "rxjs": "^7.8.1"
   },
