@@ -13,7 +13,7 @@ def get_seller_dto(row):
 def get_meeting_dto(row, client, seller):
     return {
         'date': row['Fecha de la Reunion'],
-        'closed': row['closed'] == 1,
+        'closed': row['closed'] == 1 or row['closed'] == '1',
         'transcription': row['Transcripcion'],
         'clientId': client['id'],
         'sellerId': seller['id'],

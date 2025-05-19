@@ -72,4 +72,4 @@ python3 main.py
 
 Este último comando toma aproximadamente 30 minutos en migrar todos los datos (por limitaciones de la capa gratuita de `cohere`) y una vez terminada la migración se puede acceder a la aplicación al ingresar la siguiente ruta en un navegador:
 
-`http://localhost`
+`http://localhost/`
