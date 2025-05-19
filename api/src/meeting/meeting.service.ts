@@ -11,6 +11,7 @@ import { ClientService } from 'src/client/client.service';
 import { SellerService } from 'src/seller/seller.service';
 import { Seller } from 'src/seller/seller.entity';
 import { Client } from 'src/client/client.entity';
+import { TranscriptionService } from 'src/transcription/transcription.service';
 
 @Injectable()
 export class MeetingService {
@@ -18,6 +19,7 @@ export class MeetingService {
     @InjectRepository(Meeting) private meetingRepository: Repository<Meeting>,
     private clientService: ClientService,
     private sellerService: SellerService,
+    private transcriptionService: TranscriptionService,
   ) {}
 
   async listAll(): Promise<Meeting[]> {
@@ -26,7 +28,8 @@ export class MeetingService {
 
   async create(createMeetingDto: CreateMeetingDto): Promise<Meeting> {
     try {
-      const meeting = this.meetingRepository.create(createMeetingDto);
+      const { transcription, ...meetingData } = createMeetingDto;
+      const meeting = this.meetingRepository.create(meetingData);
       const client = await this.clientService.findById(
         createMeetingDto.clientId,
       );
@@ -34,9 +37,18 @@ export class MeetingService {
         createMeetingDto.sellerId,
       );
       this.checkExistingEntities(client, seller);
+      const newTranscription = await this.transcriptionService.create({
+        transcription,
+      });
       meeting.client = client;
       meeting.seller = seller;
-      return this.meetingRepository.save(meeting);
+      meeting.transcription = newTranscription;
+
+      const savedMeeting = await this.meetingRepository.save(meeting);
+
+      console.log('Meeting created');
+
+      return savedMeeting;
     } catch (error) {
       throw new InternalServerErrorException(error.message);
     }

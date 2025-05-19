@@ -12,6 +12,7 @@ export const configLoader = () => ({
   port: process.env.PORT,
   cohere: {
     apiKey: process.env.COHERE_API_KEY,
+    model: process.env.COHERE_MODEL ?? 'command-r-plus',
   },
 });
 

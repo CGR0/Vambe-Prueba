@@ -9,7 +9,7 @@ import { ClientModule } from './client/client.module';
 import { SellerModule } from './seller/seller.module';
 import { MeetingModule } from './meeting/meeting.module';
 import { dbConfig } from './config/db';
-import { ClassificationModule } from './classification/classification.module';
+import { TranscriptionModule } from './transcription/transcription.module';
 
 @Module({
   imports: [
@@ -19,7 +19,7 @@ import { ClassificationModule } from './classification/classification.module';
     ClientModule,
     SellerModule,
     MeetingModule,
-    ClassificationModule,
+    TranscriptionModule,
   ],
   controllers: [AppController],
   providers: [AppService],

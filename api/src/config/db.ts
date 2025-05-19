@@ -3,7 +3,7 @@ import { Client } from 'src/client/client.entity';
 import { Meeting } from 'src/meeting/meeting.entity';
 import { Seller } from 'src/seller/seller.entity';
 import { configLoader } from './config-loader';
-import { Classification } from 'src/classification/classification.entity';
+import { Transcription } from 'src/transcription/transcription.entity';
 
 const config = configLoader();
 
@@ -14,6 +14,6 @@ export const dbConfig: TypeOrmModuleOptions = {
   username: config.database.username,
   password: config.database.password,
   database: config.database.database,
-  entities: [Client, Seller, Meeting, Classification],
+  entities: [Client, Seller, Meeting, Transcription],
   synchronize: config.database.synchronize,
 };

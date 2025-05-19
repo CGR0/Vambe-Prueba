@@ -61,19 +61,6 @@ services:
     networks:
       - network-vambe
 
-  data_migration:
-    container_name: data-migration-vambe
-    build:
-      context: ./data_migration
-      dockerfile: Dockerfile
-    depends_on:
-      - db
-      - api
-    env_file:
-      - ./env/data_migration.env
-    networks:
-      - network-vambe
-
 volumes:
   pgdata-vambe:
 

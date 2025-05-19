@@ -21,7 +21,7 @@ def check_api_running():
 
 def check_if_data_migrated():
     print('Checking if data is migrated')
-    response = requests.get(f'{API_URL}/clients')
+    response = requests.get(f'{API_URL}/transcriptions')
     if response.status_code == 200 and len(response.json()) > 0:
         print('Data is already migrated')
         return True

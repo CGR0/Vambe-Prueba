@@ -1,13 +1,5 @@
-import { Classification } from 'src/classification/classification.entity';
 import { Meeting } from 'src/meeting/meeting.entity';
-import {
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
-  OneToMany,
-  OneToOne,
-  JoinColumn,
-} from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
 
 @Entity()
 export class Client {
@@ -25,10 +17,4 @@ export class Client {
 
   @OneToMany(() => Meeting, (meeting) => meeting.client)
   meetings: Meeting[];
-
-  @OneToOne(() => Classification, (classification) => classification.client, {
-    cascade: true,
-  })
-  @JoinColumn()
-  classification: Classification;
 }
