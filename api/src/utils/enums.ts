@@ -20,6 +20,7 @@ export enum BusinessStage {
   GROWTH = 'Crecimiento',
   EXPANSION = 'Expansión',
   ESTABLISHED = 'Establecido',
+  OTHER = 'Otro',
 }
 
 export enum HowCameToVambe {
