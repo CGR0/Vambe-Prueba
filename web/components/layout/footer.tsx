@@ -1,23 +1,36 @@
+import FooterLink, { FooterLinkProps } from '../ui/footerLink';
+import { GitHub, LinkedIn, Email } from '@mui/icons-material';
 import Image from 'next/image';
 
 export default function Footer() {
+  const links: FooterLinkProps[] = [
+    {
+      icon: <GitHub />,
+      href: 'https://github.com/CGR0/Vambe-Prueba',
+      label: 'Repositorio',
+    },
+    {
+      icon: <LinkedIn />,
+      href: 'https://www.linkedin.com/in/cgarcesr/',
+      label: 'LinkedIn',
+    },
+    {
+      icon: <Email />,
+      href: 'mailto:cargarcesr@gmail.com',
+      label: 'Email',
+    },
+    {
+      icon: <Image src="/vambeIcon.svg" alt="Vambe" width={24} height={24} />,
+      href: 'https://vambe.ai/es/',
+      label: 'Vambe',
+    },
+  ];
+
   return (
-    <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-      <a
-        className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-        href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <Image
-          aria-hidden
-          src="/file.svg"
-          alt="File icon"
-          width={16}
-          height={16}
-        />
-        Learn
-      </a>
+    <footer className="row-start-3 flex gap-[30px] flex-wrap items-center justify-center">
+      {links.map((link) => (
+        <FooterLink key={link.href} {...link} />
+      ))}
     </footer>
   );
 }
