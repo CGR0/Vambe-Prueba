@@ -57,7 +57,7 @@ function checkNullValues(input: any) {
 }
 
 const systemPrompt = (dimension: string, options: string[]) => {
-  return `Clasifica ${dimension} en una de las siguientes opciones: ${options.join(', ')}`;
+  return `Clasifica ${dimension} en una de las siguientes opciones y responde únicamente con la opción: ${options.join(', ')}`;
 };
 
 const classifyBusinessLine = async (input: string) => {
