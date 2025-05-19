@@ -76,4 +76,17 @@ export class TranscriptionService {
       throw new InternalServerErrorException(error.message);
     }
   }
+
+  async findByText(text: string): Promise<string> {
+    const query = await getAllQueryWithEntityJoin(
+      'transcription',
+      'meeting',
+      this.transcriptionRepository,
+    );
+    const transcriptions = await query.getMany();
+    const transcription = transcriptions.find(
+      (transcription) => transcription.transcription === text,
+    );
+    return transcription.meeting.id;
+  }
 }

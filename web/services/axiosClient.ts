@@ -11,4 +11,4 @@ const createAxiosClient = (baseURL: string) => {
   return client;
 };
 
-export const axiosClient = createAxiosClient(`${process.env.API_VENTAS}`);
+export const axiosClient = createAxiosClient(`${process.env.API_URL}`);

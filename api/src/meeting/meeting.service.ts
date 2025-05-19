@@ -12,6 +12,7 @@ import { SellerService } from '../seller/seller.service';
 import { Seller } from '../seller/seller.entity';
 import { Client } from '../client/client.entity';
 import { TranscriptionService } from '../transcription/transcription.service';
+import { UpdateMeetingDto } from './dto/update.dto';
 
 @Injectable()
 export class MeetingService {
@@ -61,5 +62,19 @@ export class MeetingService {
     if (!seller) {
       throw new BadRequestException('El vendedor no existe');
     }
+  }
+
+  async update(updateMeetingDto: UpdateMeetingDto): Promise<Meeting> {
+    const { transcription, ...meetingData } = updateMeetingDto;
+    console.log(transcription);
+    const meetingId = await this.transcriptionService.findByText(transcription);
+    const meeting = await this.meetingRepository.findOne({
+      where: { id: meetingId },
+    });
+    if (!meeting) {
+      throw new BadRequestException('La reunión no existe');
+    }
+    meeting.closed = updateMeetingDto.closed;
+    return this.meetingRepository.save(meeting);
   }
 }
