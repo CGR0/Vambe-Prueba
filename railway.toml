@@ -1,0 +1,10 @@
+[build]
+builder = "DOCKERFILE"
+dockerfilePath = "./api/Dockerfile.prod"
+
+[deploy]
+startCommand = "npm run start:prod:migrate"
+
+[env]
+NODE_ENV = "production"
+PORT = 3000
