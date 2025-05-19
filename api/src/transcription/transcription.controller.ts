@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Query, Param } from '@nestjs/common';
+import { Controller, Get, Query } from '@nestjs/common';
 import { TranscriptionService } from './transcription.service';
 import { Transcription } from './transcription.entity';
 

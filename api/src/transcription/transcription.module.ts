@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { TranscriptionService } from './transcription.service';
 import { Transcription } from './transcription.entity';
-import { LLMModule } from 'src/llm/llm.module';
+import { LLMModule } from '../llm/llm.module';
 import { TranscriptionController } from './transcription.controller';
 
 @Module({

@@ -1,4 +1,4 @@
-import { Meeting } from 'src/meeting/meeting.entity';
+import { Meeting } from '../meeting/meeting.entity';
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
 
 @Entity()

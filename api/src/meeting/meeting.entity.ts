@@ -1,6 +1,6 @@
-import { Client } from 'src/client/client.entity';
-import { Seller } from 'src/seller/seller.entity';
-import { Transcription } from 'src/transcription/transcription.entity';
+import { Client } from '../client/client.entity';
+import { Seller } from '../seller/seller.entity';
+import { Transcription } from '../transcription/transcription.entity';
 import {
   Entity,
   PrimaryGeneratedColumn,

@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { parseResponse } from '../utils/functions/llm-helpers';
 import { chat } from '../utils/functions/cohere-helpers';
-import { UpdateTranscriptionDto } from 'src/transcription/dto/update.dto';
+import { UpdateTranscriptionDto } from '../transcription/dto/update.dto';
 
 @Injectable()
 export class LLMService {

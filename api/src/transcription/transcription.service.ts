@@ -7,8 +7,8 @@ import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Transcription } from './transcription.entity';
 import { CreateTranscriptionDto } from './dto/create.dto';
-import { LLMService } from 'src/llm/llm.service';
-import { getAllQueryWithEntityJoin } from 'src/utils/functions/query-helpers';
+import { LLMService } from '../llm/llm.service';
+import { getAllQueryWithEntityJoin } from '../utils/functions/query-helpers';
 import { UpdateTranscriptionDto } from './dto/update.dto';
 
 @Injectable()

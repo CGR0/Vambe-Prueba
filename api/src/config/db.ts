@@ -1,9 +1,9 @@
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
-import { Client } from 'src/client/client.entity';
-import { Meeting } from 'src/meeting/meeting.entity';
-import { Seller } from 'src/seller/seller.entity';
+import { Client } from '../client/client.entity';
+import { Meeting } from '../meeting/meeting.entity';
+import { Seller } from '../seller/seller.entity';
 import { configLoader } from './config-loader';
-import { Transcription } from 'src/transcription/transcription.entity';
+import { Transcription } from '../transcription/transcription.entity';
 
 const config = configLoader();
 

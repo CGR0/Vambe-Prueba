@@ -3,7 +3,7 @@ import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Seller } from './seller.entity';
 import { CreateSellerDto } from './dto/create.dto';
-import { getByIdQueryWithEntityJoin } from 'src/utils/functions/query-helpers';
+import { getByIdQueryWithEntityJoin } from '../utils/functions/query-helpers';
 
 @Injectable()
 export class SellerService {

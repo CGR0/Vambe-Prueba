@@ -1,11 +1,11 @@
-import { Meeting } from 'src/meeting/meeting.entity';
 import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Meeting } from '../meeting/meeting.entity';
 import {
   BusinessLine,
   DailyConsultations,
   BusinessStage,
   HowCameToVambe,
-} from 'src/utils/enums';
+} from '../utils/enums';
 
 @Entity()
 export class Transcription {

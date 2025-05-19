@@ -7,11 +7,11 @@ import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Meeting } from './meeting.entity';
 import { CreateMeetingDto } from './dto/create.dto';
-import { ClientService } from 'src/client/client.service';
-import { SellerService } from 'src/seller/seller.service';
-import { Seller } from 'src/seller/seller.entity';
-import { Client } from 'src/client/client.entity';
-import { TranscriptionService } from 'src/transcription/transcription.service';
+import { ClientService } from '../client/client.service';
+import { SellerService } from '../seller/seller.service';
+import { Seller } from '../seller/seller.entity';
+import { Client } from '../client/client.entity';
+import { TranscriptionService } from '../transcription/transcription.service';
 
 @Injectable()
 export class MeetingService {
