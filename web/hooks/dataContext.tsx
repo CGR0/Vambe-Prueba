@@ -1,13 +1,11 @@
 'use client';
 
 import React, { createContext, useState, ReactNode, useEffect } from 'react';
-import { Client, Meeting, Seller } from '@/utils/types';
+import { Meeting } from '@/utils/types';
 import { getOriginalData } from '@/utils/functions';
 
 interface DataTypes {
-  clients: Client[];
   meetings: Meeting[];
-  sellers: Seller[];
 }
 
 interface DataContextType {
@@ -22,14 +20,10 @@ export const DataContext = createContext<DataContextType | undefined>(
 
 export const DataProvider = ({ children }: { children: ReactNode }) => {
   const [originalData, setOriginalData] = useState<DataTypes>({
-    clients: [],
     meetings: [],
-    sellers: [],
   });
   const [filteredData, setFilteredData] = useState<DataTypes>({
-    clients: [],
     meetings: [],
-    sellers: [],
   });
 
   useEffect(() => {
