@@ -8,6 +8,7 @@ interface ButtonProps {
   icon: JSX.Element;
   tooltip?: string;
   badgeCount?: number;
+  color?: 'primary' | 'secondary' | 'error';
 }
 
 export default function CustomIconButton({
@@ -15,10 +16,11 @@ export default function CustomIconButton({
   icon,
   tooltip,
   badgeCount,
+  color = 'primary',
 }: ButtonProps) {
   return (
     <Tooltip title={tooltip}>
-      <IconButton color="primary" onClick={onClick}>
+      <IconButton color={color} onClick={onClick}>
         <Badge badgeContent={badgeCount} color="primary">
           {icon}
         </Badge>

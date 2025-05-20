@@ -37,6 +37,7 @@ export interface Transcription {
   how_came_to_vambe?: HowCameToVambe;
   problem?: string;
   reasons?: string;
+  expectations?: string;
   meeting?: Meeting;
 }
 
