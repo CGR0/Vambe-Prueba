@@ -12,6 +12,7 @@ import { SellerService } from '../seller/seller.service';
 import { Seller } from '../seller/seller.entity';
 import { Client } from '../client/client.entity';
 import { TranscriptionService } from '../transcription/transcription.service';
+import { getAllQueryWithEntityJoin } from 'src/utils/functions/query-helpers';
 
 @Injectable()
 export class MeetingService {
@@ -22,8 +23,13 @@ export class MeetingService {
     private transcriptionService: TranscriptionService,
   ) {}
 
-  async listAll(): Promise<Meeting[]> {
-    return this.meetingRepository.find();
+  async listAll(entities: string = ''): Promise<Meeting[]> {
+    const query = await getAllQueryWithEntityJoin(
+      'meeting',
+      entities,
+      this.meetingRepository,
+    );
+    return query.getMany();
   }
 
   async create(createMeetingDto: CreateMeetingDto): Promise<Meeting> {

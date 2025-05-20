@@ -17,9 +17,9 @@ export interface Meeting {
   id: string;
   date: Date;
   closed: boolean;
-  client?: Client;
-  seller?: Seller;
-  transcription?: Transcription;
+  client: Client;
+  seller: Seller;
+  transcription: Transcription;
 }
 
 export interface Seller {
@@ -38,4 +38,22 @@ export interface Transcription {
   problem?: string;
   reasons?: string;
   meeting?: Meeting;
+}
+
+export interface ChartProps {
+  title: string;
+  dataset: { x: string; y: number }[];
+  type: 'line' | 'bar';
+  horizontal?: boolean;
+}
+
+export interface Filters {
+  sales: string[];
+  clientsIds: string[];
+  sellersIds: string[];
+  businessLines: BusinessLine[];
+  businessStages: BusinessStage[];
+  dailyConsultations: DailyConsultations[];
+  howCameToVambe: HowCameToVambe[];
+  search: string;
 }

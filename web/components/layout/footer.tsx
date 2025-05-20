@@ -27,7 +27,7 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="row-start-3 flex gap-[30px] flex-wrap items-center justify-center">
+    <footer className="row-start-3 flex gap-[30px] flex-wrap items-center justify-center mb-10">
       {links.map((link) => (
         <FooterLink key={link.href} {...link} />
       ))}

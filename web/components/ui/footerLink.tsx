@@ -9,7 +9,7 @@ export interface FooterLinkProps {
 export default function FooterLink({ icon, href, label }: FooterLinkProps) {
   return (
     <a
-      className="flex items-center gap-2 text-white hover:underline hover:underline-offset-4"
+      className="flex items-center gap-2 text-black hover:underline hover:underline-offset-4"
       href={href}
       target="_blank"
       rel="noopener noreferrer"

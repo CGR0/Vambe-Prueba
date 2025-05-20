@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body } from '@nestjs/common';
+import { Controller, Get, Post, Body, Query } from '@nestjs/common';
 import { MeetingService } from './meeting.service';
 import { CreateMeetingDto } from './dto/create.dto';
 import { Meeting } from './meeting.entity';
@@ -7,8 +7,8 @@ export class MeetingController {
   constructor(private meetingService: MeetingService) {}
 
   @Get()
-  async listAll(): Promise<Meeting[]> {
-    return this.meetingService.listAll();
+  async listAll(@Query('entities') entities: string): Promise<Meeting[]> {
+    return this.meetingService.listAll(entities);
   }
 
   @Post()

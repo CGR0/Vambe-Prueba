@@ -1,41 +1,41 @@
 'use client';
 
-import { Box } from '@mui/material';
-import { MenuItem } from '@mui/material';
-import { TextField } from '@mui/material';
-import { ChartContainer, BarPlot, LinePlot, ChartsXAxis } from '@mui/x-charts';
-import { useState } from 'react';
-export default function Chart({ series }: { series: any }) {
-  const [type, setType] = useState<'line' | 'bar'>('line');
+import { BarChart } from '@mui/x-charts/BarChart';
+import { LineChart } from '@mui/x-charts/LineChart';
+import { ChartProps } from '@/utils/types';
+import { Typography } from '@mui/material';
+
+export default function Chart({
+  title,
+  dataset,
+  type,
+  horizontal = false,
+}: ChartProps) {
+  const xAxis: any = [{ data: dataset.map((item) => item.x) }];
+  const series = [{ data: dataset.map((item) => item.y) }];
+
+  if (type === 'line') {
+    xAxis[0].data = dataset.map((item) => new Date(item.x));
+    xAxis[0].scaleType = 'time';
+    xAxis[0].min = new Date('2024-01-01');
+    xAxis[0].max = new Date('2024-12-01');
+    xAxis[0].valueFormatter = (date: Date) => `${date.getMonth() + 1}`;
+  }
 
   return (
-    <Box sx={{ width: '100%' }}>
-      <TextField
-        select
-        value={type}
-        onChange={(event) => setType(event.target.value as 'line' | 'bar')}
-        label="series type"
-        sx={{ minWidth: 150 }}
-      >
-        <MenuItem value="line">line</MenuItem>
-        <MenuItem value="bar">bar</MenuItem>
-      </TextField>
-      <ChartContainer
-        series={series}
-        xAxis={[
-          {
-            data: ['A', 'B', 'C', 'D', 'E'],
-            scaleType: 'band',
-            id: 'x-axis-id',
-            height: 45,
-          },
-        ]}
-        height={200}
-      >
-        <BarPlot />
-        <LinePlot />
-        <ChartsXAxis label="X axis" axisId="x-axis-id" />
-      </ChartContainer>
-    </Box>
+    <div className="flex flex-col items-center justify-center gap-4">
+      <Typography variant="h6">{title}</Typography>
+      {type === 'line' ? (
+        <LineChart xAxis={xAxis} series={series} height={400} width={700} />
+      ) : (
+        <BarChart
+          xAxis={xAxis}
+          series={series}
+          height={400}
+          width={700}
+          layout={horizontal ? 'horizontal' : 'vertical'}
+        />
+      )}
+    </div>
   );
 }

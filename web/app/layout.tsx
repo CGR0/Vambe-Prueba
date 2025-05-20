@@ -34,7 +34,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <main className="flex flex-col w-full h-full min-h-screen overflow-y-auto">
+        <main className="flex flex-col w-full h-full min-h-screen overflow-y-auto min-h-screen bg-gradient-to-br from-white via-blue-50 to-purple-100">
           <DataProvider>
             <Header />
             {children}
