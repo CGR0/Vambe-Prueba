@@ -48,7 +48,10 @@ export default function Chart({
       ) : type === 'bar' ? (
         <BarChart {...props} />
       ) : (
-        <ScatterChart {...props} />
+        <ScatterChart
+          {...props}
+          yAxis={[{ scaleType: 'linear', min: 0, max: 1 }]}
+        />
       )}
     </div>
   );
