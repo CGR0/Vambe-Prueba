@@ -4,14 +4,16 @@ export function CustomDropDownMenu({
   options,
   onSelect,
   selectedValue,
+  className,
 }: {
   options: { title: string; value: any }[];
   onSelect: (option: any) => void;
   selectedValue: any;
+  className?: string;
 }) {
   return (
     <div>
-      <FormControl className="w-50">
+      <FormControl className={className}>
         <Select
           value={
             options.find((opt) => opt.title === selectedValue)?.value || ''

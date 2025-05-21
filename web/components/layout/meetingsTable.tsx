@@ -43,7 +43,7 @@ export default function MeetingsTable() {
 
   return (
     <div className="flex flex-col gap-4" style={{ width: '100%' }}>
-      <TableContainer component={Paper}>
+      <TableContainer component={Paper} elevation={4} className="rounded-3xl">
         <Table>
           <CustomHeader
             titles={[

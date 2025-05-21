@@ -37,14 +37,16 @@ export interface Transcription {
   how_came_to_vambe?: HowCameToVambe;
   problem?: string;
   reasons?: string;
+  expectations?: string;
   meeting?: Meeting;
 }
 
 export interface ChartProps {
-  title: string;
-  dataset: { x: string; y: number }[];
-  type: 'line' | 'bar';
+  title?: string;
+  dataset?: { x: string; y: number }[];
+  type: 'line' | 'bar' | 'scatter';
   horizontal?: boolean;
+  preLoadedSeries?: { label: string; data: { x: number; y: number }[] }[];
 }
 
 export interface Filters {
