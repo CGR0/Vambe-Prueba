@@ -42,10 +42,11 @@ export interface Transcription {
 }
 
 export interface ChartProps {
-  title: string;
-  dataset: { x: string; y: number }[];
-  type: 'line' | 'bar';
+  title?: string;
+  dataset?: { x: string; y: number }[];
+  type: 'line' | 'bar' | 'scatter';
   horizontal?: boolean;
+  preLoadedSeries?: { label: string; data: { x: string; y: number }[] }[];
 }
 
 export interface Filters {

@@ -23,8 +23,8 @@ export default function Kpi({
 
   return (
     <Paper
-      elevation={3}
-      className="flex flex-col items-center gap-2 p-4 rounded-3xl shadow-md bg-white"
+      elevation={4}
+      className="flex flex-col items-center gap-2 p-4 rounded-3xl bg-white"
     >
       <Typography variant="h6">{label}</Typography>
       <Gauge

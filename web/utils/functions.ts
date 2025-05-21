@@ -1,5 +1,10 @@
 import { getMeetings } from '../services/meetings';
-import { BusinessLine, BusinessStage } from './enums';
+import {
+  BusinessLine,
+  BusinessStage,
+  DailyConsultations,
+  HowCameToVambe,
+} from './enums';
 import { Filters, Meeting } from './types';
 
 export const getOriginalData = async () => {
@@ -19,7 +24,13 @@ export const getLength = (
 
 export const getChartData = (
   meetings: Meeting[],
-  type: 'seller' | 'business_stage' | 'business_line' | 'date',
+  type:
+    | 'seller'
+    | 'business_stage'
+    | 'business_line'
+    | 'date'
+    | 'daily_consultations'
+    | 'how_came_to_vambe',
 ) => {
   let data: Record<string, number> = {};
   if (type === 'seller') {
@@ -30,37 +41,55 @@ export const getChartData = (
     data = reduceData(meetings, 'business_line');
   } else if (type === 'date') {
     data = reduceDateData(meetings);
+  } else if (type === 'daily_consultations') {
+    data = reduceData(meetings, 'daily_consultations');
+  } else if (type === 'how_came_to_vambe') {
+    data = reduceData(meetings, 'how_came_to_vambe');
   }
   return parseChartData(data);
 };
 
 const reduceSellers = (meetings: Meeting[]) => {
-  return meetings.reduce((acc, meeting) => {
+  const data = meetings.reduce((acc, meeting) => {
     acc[meeting.seller.name] = (acc[meeting.seller.name] || 0) + 1;
     return acc;
   }, {} as Record<string, number>);
+  return sortData(data);
 };
 
 const reduceData = (
   meetings: Meeting[],
-  type: 'business_stage' | 'business_line',
+  type:
+    | 'business_stage'
+    | 'business_line'
+    | 'daily_consultations'
+    | 'how_came_to_vambe',
 ): Record<string, number> => {
   const data = meetings.reduce((acc, meeting) => {
     const attribute = meeting.transcription[type];
-    let key: string;
     if (
       Object.values(
-        type === 'business_stage' ? BusinessStage : BusinessLine,
-      ).includes(attribute as BusinessStage | BusinessLine)
+        type === 'business_stage'
+          ? BusinessStage
+          : type === 'daily_consultations'
+          ? DailyConsultations
+          : type === 'how_came_to_vambe'
+          ? HowCameToVambe
+          : BusinessLine,
+      ).includes(
+        attribute as
+          | BusinessStage
+          | BusinessLine
+          | DailyConsultations
+          | HowCameToVambe,
+      )
     ) {
-      key = attribute as string;
-    } else {
-      key = 'No identificado';
+      const key = attribute as string;
+      acc[key] = (acc[key] || 0) + 1;
     }
-    acc[key] = (acc[key] || 0) + 1;
     return acc;
   }, {} as Record<string, number>);
-  return data;
+  return sortData(data);
 };
 
 const reduceDateData = (meetings: Meeting[]): Record<string, number> => {
@@ -83,6 +112,12 @@ const parseChartData = (
     x: key,
     y: value,
   }));
+};
+
+const sortData = (data: Record<string, number>) => {
+  return Object.fromEntries(
+    Object.entries(data).sort((a, b) => b[1] - a[1]),
+  ) as Record<string, number>;
 };
 
 const sortDateData = (data: Record<string, number>): Record<string, number> => {
@@ -214,4 +249,45 @@ export const getOptions = (meetings: Meeting[], type: 'client' | 'seller') => {
     title: result.split(' - ')[0],
     value: result.split(' - ')[1],
   }));
+};
+
+export const getScatterData = (
+  meetings: Meeting[],
+  type: 'business_line' | 'business_stage' | 'how_came_to_vambe',
+) => {
+  const separatedData = Object.values(
+    type === 'business_stage'
+      ? BusinessStage
+      : type === 'how_came_to_vambe'
+      ? HowCameToVambe
+      : BusinessLine,
+  ).map((item) => {
+    return {
+      x: item,
+      y: meetings.filter((meeting) => meeting.transcription[type] === item),
+    };
+  });
+  const finalData = separatedData.map((item) => {
+    return {
+      label: item.x,
+      data: Object.values(DailyConsultations)
+        .map((consultation) => ({
+          x: consultation,
+          y:
+            item.y
+              .filter(
+                (meeting) =>
+                  meeting.transcription.daily_consultations === consultation,
+              )
+              .filter((meeting) => meeting.closed).length /
+            item.y.filter(
+              (meeting) =>
+                meeting.transcription.daily_consultations === consultation,
+            ).length,
+        }))
+        .filter((item) => item.y && item.y !== 0),
+      id: item.x,
+    };
+  });
+  return finalData;
 };
