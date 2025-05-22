@@ -11,7 +11,7 @@ import {
   Badge,
 } from '@mui/material';
 
-interface MultipleDropDownProps {
+export interface MultipleDropDownProps {
   options: { title: string; value: any }[];
   onSelect: (options: string[]) => void;
   selectedValues: string[];

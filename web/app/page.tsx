@@ -13,7 +13,9 @@ export default function Home() {
   const { originalData } = context;
 
   useEffect(() => {
-    setIsLoading(false);
+    if (originalData.meetings.length > 0) {
+      setIsLoading(false);
+    }
   }, [originalData]);
 
   return (

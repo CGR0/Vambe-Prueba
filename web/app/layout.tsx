@@ -3,7 +3,7 @@ import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
 import Footer from '../components/layout/footer';
 import Header from '../components/layout/header';
-import { DataProvider } from '@/hooks/dataContext';
+import { DataProvider } from '../hooks/dataContext';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -16,7 +16,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'Vambe - Clients metrics',
+  title: 'Análisis de reuniones',
   description:
     'Métricas relevantes acerca del análisis de transcripciones de reuniones con potenciales clientes.',
   icons: {
@@ -30,7 +30,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="es">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >

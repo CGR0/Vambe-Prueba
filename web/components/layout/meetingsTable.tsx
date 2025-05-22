@@ -53,7 +53,7 @@ export default function MeetingsTable() {
               'Teléfono del cliente',
               'Vendedor asignado',
               'Cierre de la venta',
-              'Más detalles',
+              '',
             ]}
           />
           <TableBody>
@@ -68,6 +68,7 @@ export default function MeetingsTable() {
                   meeting.seller.name,
                   meeting.closed ? 'Si' : 'No',
                   <CustomIconButton
+                    tooltip="Ver más detalles"
                     icon={<InfoOutlined />}
                     onClick={() => {
                       setSelectedMeeting(meeting);

@@ -43,7 +43,7 @@ export default function KpiSection() {
   ];
 
   return (
-    <Paper className="flex justify-between p-10 gap-10 rounded-3xl shadow-md bg-white">
+    <Paper className="flex flex-col md:flex-row flex-wrap justify-between p-10 gap-10 rounded-3xl shadow-md bg-white">
       {kpis.map((kpi) => (
         <Kpi
           key={kpi.label}

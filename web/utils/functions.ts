@@ -1,16 +1,10 @@
-import { getMeetings } from '../services/meetings';
 import {
   BusinessLine,
   BusinessStage,
   DailyConsultations,
   HowCameToVambe,
 } from './enums';
-import { Filters, Meeting } from './types';
-
-export const getOriginalData = async () => {
-  const meetings = await getMeetings('transcription,client,seller');
-  return { meetings };
-};
+import { Filters, Meeting, ChartProps } from './types';
 
 export const getLength = (
   data: Meeting[],
@@ -301,4 +295,39 @@ const filterByDailyConsultations = (meetings: Meeting[], value: string) => {
   return meetings.filter(
     (meeting) => meeting.transcription.daily_consultations === value,
   );
+};
+
+export const getProps = ({
+  dataset,
+  type,
+  horizontal,
+  preLoadedSeries,
+}: ChartProps) => {
+  let xAxis: any;
+  let series: any;
+
+  if (preLoadedSeries) {
+    series = preLoadedSeries;
+  }
+
+  if (type !== 'scatter' && dataset) {
+    xAxis = [{ data: dataset.map((item) => item.x) }];
+    series = [{ data: dataset.map((item) => item.y) }];
+  }
+
+  if (type === 'line' && dataset) {
+    xAxis[0].data = dataset.map((item) => new Date(item.x));
+    xAxis[0].scaleType = 'time';
+    xAxis[0].min = new Date('2024-01-01');
+    xAxis[0].max = new Date('2024-12-01');
+    xAxis[0].valueFormatter = (date: Date) => `${date.getMonth() + 1}`;
+  }
+
+  return {
+    height: 400,
+    width: 1200,
+    layout: horizontal ? ('horizontal' as const) : ('vertical' as const),
+    xAxis,
+    series,
+  };
 };

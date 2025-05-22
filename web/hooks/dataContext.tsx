@@ -2,7 +2,7 @@
 
 import React, { createContext, useState, ReactNode, useEffect } from 'react';
 import { Meeting } from '@/utils/types';
-import { getOriginalData } from '@/utils/functions';
+import { getMeetings } from '@/services/meetings';
 
 interface DataTypes {
   meetings: Meeting[];
@@ -28,9 +28,9 @@ export const DataProvider = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await getOriginalData();
-      setOriginalData(data);
-      setFilteredData(data);
+      const data = await getMeetings('transcription,client,seller');
+      setOriginalData({ meetings: data });
+      setFilteredData({ meetings: data });
     };
     fetchData();
   }, []);
